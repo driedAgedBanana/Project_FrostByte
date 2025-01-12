@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float mouseSensitivity = 3f;
 
     private float _verticalLookRotation = 0f;
-    public Transform cameraTransform;
+    public Transform playerTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
         _verticalLookRotation -= mouseY;
         _verticalLookRotation = Mathf.Clamp(_verticalLookRotation, -85, 85f);
-        cameraTransform.localRotation = Quaternion.Euler(_verticalLookRotation, 0f, 0f);
+        playerTransform.localRotation = Quaternion.Euler(_verticalLookRotation, 0f, 0f);
 
         Vector3 moveDir = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
         
