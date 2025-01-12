@@ -2,20 +2,42 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
+    public float Drag = 2.5f;
+    public float DragThreshold = -5f;
+    public float Smoothness = 5f;
+    public Transform Parent;
 
-    [SerializeField] private float _smooth;
-    [SerializeField] private float _swayMultiplier;
-
-    private void Update()
+    private Quaternion localRotation;
+    // Start is called before the first frame update
+    void Start()
     {
-        float mouseX = Input.GetAxis("Mouse X") * _swayMultiplier;
-        float mouseY = Input.GetAxis("Mouse Y") * _swayMultiplier;
+        localRotation = transform.localRotation;
+    }
 
-        Quaternion rotationX = Quaternion.AngleAxis(-mouseX, Vector3.right);
-        Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
+    // Update is called once per frame
+    void Update()
+    {
+        float z = (Input.GetAxis("Mouse Y")) * Drag;
+        float y = (Input.GetAxis("Mouse X")) * Drag;
 
-        Quaternion tagerRotation = rotationX * rotationY;
+        if (Drag >= 0)
+        {
+            y = (y > DragThreshold) ? DragThreshold : y;
+            y = (y < -DragThreshold) ? -DragThreshold : y;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, tagerRotation, _smooth * Time.deltaTime);
+            z = (z > DragThreshold) ? DragThreshold : z;
+            z = (z < -DragThreshold) ? -DragThreshold : z;
+        }
+        else
+        {
+            y = (y < DragThreshold) ? DragThreshold : y;
+            y = (y > -DragThreshold) ? -DragThreshold : y;
+
+            z = (z < DragThreshold) ? -DragThreshold : z;
+            z = (z > -DragThreshold) ? -DragThreshold : z;
+        }
+
+        Quaternion newRotation = Quaternion.Euler(localRotation.x, localRotation.y + y, Parent.localEulerAngles.z + localRotation.z + z);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, newRotation, (Time.deltaTime * Smoothness));
     }
 }
