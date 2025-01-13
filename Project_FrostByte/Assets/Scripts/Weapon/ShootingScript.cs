@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ShootingScript : MonoBehaviour
 {
+    public WeaponMechanics weaponMechanics;
+
     [SerializeField] private Transform _mainCamera;
     [SerializeField] private Camera _cam;
 
@@ -46,15 +48,19 @@ public class ShootingScript : MonoBehaviour
 
         if (_isAiming)
         {
+            // Lerp the position and rotation based on aiming
             gun.position = Vector3.Lerp(gun.position, aimingPosition.position, Time.deltaTime * aimingSpeed);
             gun.rotation = Quaternion.Lerp(gun.rotation, aimingPosition.rotation, Time.deltaTime * aimingSpeed);
-            //crosshairImage.gameObject.SetActive(false);
         }
         else
         {
+            // Lerp back to the original position and rotation
             gun.position = Vector3.Lerp(gun.position, originalWeaponPosition.position, Time.deltaTime * aimingSpeed);
             gun.rotation = Quaternion.Lerp(gun.rotation, originalWeaponPosition.rotation, Time.deltaTime * aimingSpeed);
-            //crosshairImage.gameObject.SetActive(true);
         }
+
+        // Apply the bobbing after the aiming logic
+        weaponMechanics.weaponBob();
     }
+
 }

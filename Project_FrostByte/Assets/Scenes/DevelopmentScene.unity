@@ -487,8 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e98bbcdc41d154ab0be25de0adc3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Drag: 5
-  DragThreshold: 40
+  Drag: 4
+  DragThreshold: 35
   Smoothness: 5
   Parent: {fileID: 330585546}
 --- !u!1 &802383710
