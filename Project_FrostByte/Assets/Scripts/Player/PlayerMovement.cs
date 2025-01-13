@@ -103,12 +103,23 @@ public class PlayerMovement : MonoBehaviour
     //}
     #endregion
 
+    [Header("Player Movements")]
     public float moveSpeed;
     public float sprintSpeed;
     public float mouseSensitivity = 3f;
 
     private float _verticalLookRotation = 0f;
     public Transform cameraTransform;
+
+    [Header("Leaning Mechanic")]
+    public float rotationSpeed = 2; // Speed of camera rotation
+    public float amt; // Leaning amount, not used directly
+    public float slerpAMT; // Slerp amount, not used directly
+    public float leaningAmount = 20f; // Amount to lean left or right
+    public float leaningSpeed = 15f; // Speed of leaning transition
+
+    private Quaternion _startRotation; // Initial rotation of the player
+    private Quaternion _targetLeanRotation; // Target rotation for leaning
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -119,6 +130,12 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        playerMovement();
+        leaningMechanic();
+    }
+
+    private void playerMovement()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -133,5 +150,28 @@ public class PlayerMovement : MonoBehaviour
 
         float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
         transform.position += moveDir * speed * Time.deltaTime;
+    }
+
+    private void leaningMechanic()
+    {
+        // Get lean input from the user
+        float leanInput = Input.GetAxis("Lean Axes");
+
+        // Determine target lean rotation based on input
+        if (leanInput < 0) // Lean right
+        {
+            _targetLeanRotation = Quaternion.Euler(0, transform.localEulerAngles.y, -leaningAmount);
+        }
+        else if (leanInput > 0) // Lean left
+        {
+            _targetLeanRotation = Quaternion.Euler(0, transform.localEulerAngles.y, leaningAmount);
+        }
+        else // No lean
+        {
+            _targetLeanRotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
+        }
+
+        // Smoothly transition to the target lean rotation
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, _targetLeanRotation, Time.deltaTime * leaningSpeed);
     }
 }
