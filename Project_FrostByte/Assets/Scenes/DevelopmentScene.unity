@@ -933,17 +933,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92c245a5e13ae441826d9cfbf24647d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  moveSpeed: 3
   sprintSpeed: 9
-  crouchSpeed: 2.5
-  jumpForce: 10
-  rotationSpeed: 2
-  amt: 5
-  slerpAMT: 5
-  leaningAmount: 20
-  leaningSpeed: 15
-  rb: {fileID: 1528093915}
-  playerTransform: {fileID: 1528093914}
+  mouseSensitivity: 230
+  cameraTransform: {fileID: 330585546}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
