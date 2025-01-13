@@ -449,7 +449,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 474436619}
-  - component: {fileID: 474436620}
   m_Layer: 0
   m_Name: WeaponSlot
   m_TagString: Untagged
@@ -475,22 +474,6 @@ Transform:
   - {fileID: 802383711}
   m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &474436620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474436618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9e98bbcdc41d154ab0be25de0adc3e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Drag: 4
-  DragThreshold: 35
-  Smoothness: 5
-  Parent: {fileID: 330585546}
 --- !u!1 &802383710
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,9 +516,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 802383710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee4cdd9ba5030b542bac1becf1e17363, type: 3}
+  m_Script: {fileID: 11500000, guid: e9e98bbcdc41d154ab0be25de0adc3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Drag: 2.5
+  DragThreshold: 35
+  Smoothness: 5
+  Parent: {fileID: 802383711}
+  weaponTransform: {fileID: 802383711}
+  bounceAmount: 0.05
+  bounceSpeed: 5
   _mainCamera: {fileID: 330585546}
   _cam: {fileID: 330585545}
   shootKey: 323
@@ -940,7 +930,7 @@ MonoBehaviour:
   rotationSpeed: 2
   amt: 5
   slerpAMT: 5
-  leaningAmount: 20
+  leaningAmount: 15
   leaningSpeed: 15
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
