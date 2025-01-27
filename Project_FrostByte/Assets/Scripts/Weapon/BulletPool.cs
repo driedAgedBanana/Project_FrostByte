@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class BulletPool : MonoBehaviour
 {
@@ -32,15 +30,22 @@ public class BulletPool : MonoBehaviour
 
         for (int i = 0; i < poolSize; i++)
         {
+            // Instantiate the bullet and ensure its position and rotation are reset
             GameObject bullet = Instantiate(bulletPrefab);
             bullet.SetActive(false);
-            _bulletPool.Enqueue(bullet);
+
+            bullet.transform.position = Vector3.zero; // Reset position
+            bullet.transform.rotation = Quaternion.identity; // Reset rotation
+
+            _bulletPool.Enqueue(bullet); // Add it to the pool
         }
     }
 
+
     public GameObject GetBullet()
     {
-        if (_bulletPool.Count > 0) {
+        if (_bulletPool.Count > 0)
+        {
             GameObject bullet = _bulletPool.Dequeue();
             bullet.SetActive(true);
             return bullet;
@@ -66,4 +71,5 @@ public class BulletPool : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

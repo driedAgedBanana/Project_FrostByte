@@ -59,12 +59,23 @@ public class WeaponMechanicsScript : MonoBehaviour
 
     private void Shoot()
     {
-        // Get a bullet from the bullet pool script
         GameObject bullet = BulletPool.instance.GetBullet();
 
+        // Set bullet's position and rotation
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = bulletSpawnPoint.rotation;
+
+        bullet.SetActive(true); // Make sure the bullet is active
+
+        // Clear the TrailRenderer right after the bullet is activated
+        TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
+        if (trail != null)
+        {
+            trail.Clear(); // This will clear the trail when the bullet is fired
+        }
     }
+
+
 
     private void weaponSway()
     {

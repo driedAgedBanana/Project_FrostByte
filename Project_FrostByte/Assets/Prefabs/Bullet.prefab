@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 125
-  lifeTime: 0.7
+  lifeTime: 0.2
 --- !u!135 &4738946070209678078
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.009009009
+        value: 0.019011145
         inSlope: 0
         outSlope: 0
         tangentMode: 0

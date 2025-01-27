@@ -12,8 +12,17 @@ public class BulletScript : MonoBehaviour
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
+
+        // Reset position, rotation, and velocities as before
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
         _timer = 0f; // Reset the timer when the bullet is reused
     }
+
 
     void Update()
     {
@@ -38,8 +47,10 @@ public class BulletScript : MonoBehaviour
     {
         // Reset Rigidbody velocity
         rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
         // Return the bullet to the pool
         BulletPool.instance.ReturnBullet(gameObject);
     }
+
 }
