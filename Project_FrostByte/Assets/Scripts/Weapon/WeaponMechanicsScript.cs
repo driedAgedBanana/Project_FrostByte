@@ -12,7 +12,10 @@ public class WeaponMechanicsScript : MonoBehaviour
     private float _nextFireTime;
     [SerializeField] private bool _isShooting;
 
-    public Animator animator;
+    // Muzzle flash handler
+    public ParticleSystem muzzleFlash;
+
+    private Animator _animator;
 
     [Header("Aiming Mechanics")]
     public KeyCode shootKey = KeyCode.Mouse0;
@@ -46,7 +49,7 @@ public class WeaponMechanicsScript : MonoBehaviour
         gun.position = originalWeaponPosition.position;
         gun.rotation = originalWeaponPosition.rotation;
 
-        animator = GetComponentInChildren<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -64,9 +67,14 @@ public class WeaponMechanicsScript : MonoBehaviour
         {
             Shoot();
             _nextFireTime = Time.time + fireRate;
+            muzzleFlash.Play();
         }
-
-        animator.SetBool("IsShooting", isFiring);
+        else
+        {
+            muzzleFlash.Stop();
+        }
+        
+        _animator.SetBool("IsShooting", isFiring);
     }
 
     private void Shoot()
