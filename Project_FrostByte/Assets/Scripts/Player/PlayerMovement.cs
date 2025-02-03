@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 public class PlayerMovement : MonoBehaviour
 {
     #region Archive movement code
@@ -133,23 +134,20 @@ public class PlayerMovement : MonoBehaviour
     {
         playerMovement();
         leaningMechanic();
+        Raycasting();
     }
 
     private void playerMovement()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        transform.Rotate(Vector3.up * mouseX); // Rotate the player horizontally
+        transform.Rotate(Vector3.up * mouseX);
+        transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
 
         _verticalLookRotation -= mouseY;
         _verticalLookRotation = Mathf.Clamp(_verticalLookRotation, -85, 85f);
         cameraTransform.localRotation = Quaternion.Euler(_verticalLookRotation, 0f, 0f);
-
-        Vector3 moveDir = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
-
-        float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
-        transform.position += moveDir * speed * Time.deltaTime;
     }
 
     private void leaningMechanic()
@@ -173,5 +171,18 @@ public class PlayerMovement : MonoBehaviour
 
         // Smoothly transition to the target lean rotation
         transform.localRotation = Quaternion.Slerp(transform.localRotation, _targetLeanRotation, Time.deltaTime * leaningSpeed);
+    }
+
+    void Raycasting()
+    {
+        Ray ray = new Ray(cameraTransform.position, transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log(hit.collider.gameObject.name);
+        }
+
+        Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 100f, Color.red);
     }
 }
