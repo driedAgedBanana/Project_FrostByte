@@ -10,6 +10,9 @@ public class WeaponMechanicsScript : MonoBehaviour
     public float fireRate = 0.5f;
 
     private float _nextFireTime;
+    [SerializeField] private bool _isShooting;
+
+    public Animator animator;
 
     [Header("Aiming Mechanics")]
     public KeyCode shootKey = KeyCode.Mouse0;
@@ -42,6 +45,8 @@ public class WeaponMechanicsScript : MonoBehaviour
 
         gun.position = originalWeaponPosition.position;
         gun.rotation = originalWeaponPosition.rotation;
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -50,11 +55,18 @@ public class WeaponMechanicsScript : MonoBehaviour
         weaponSway();
         Aiming();
 
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time >= _nextFireTime)
+        _isShooting = false;
+
+        //Perform a check if the player is holding the shooting key 
+        bool isFiring = Input.GetKey(shootKey) && Time.time >= _nextFireTime;
+
+        if (isFiring)
         {
             Shoot();
             _nextFireTime = Time.time + fireRate;
         }
+
+        animator.SetBool("IsShooting", isFiring);
     }
 
     private void Shoot()
