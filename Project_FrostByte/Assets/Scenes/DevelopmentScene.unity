@@ -496,6 +496,10 @@ PrefabInstance:
       propertyPath: bulletSpawnPoint
       value: 
       objectReference: {fileID: 474690322}
+    - target: {fileID: 9016608453240742895, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+      propertyPath: mouseSensitivity
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1296039149239982345, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
     m_RemovedGameObjects:
