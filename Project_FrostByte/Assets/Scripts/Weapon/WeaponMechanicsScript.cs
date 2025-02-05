@@ -8,14 +8,19 @@ public class WeaponMechanicsScript : MonoBehaviour
     [Header("Shooting Mechanics")]
     public Transform bulletSpawnPoint;
     public float fireRate = 0.5f;
-
     private float _nextFireTime;
-    [SerializeField] private bool _isShooting;
-
-    // Muzzle flash handler
     public ParticleSystem muzzleFlash;
 
     private Animator _animator;
+    [SerializeField] private AudioSource _shootingSFX;
+
+
+    [Header("Recoil Mechanics")]
+    public Transform _weapon;
+    [SerializeField] private float _recoilAmount = 5f;
+    [SerializeField] private float _recoilSpeedReset = 5f;
+    private Vector3 _originalRotation;
+    private float _currentRecoil = 0f;
 
     [Header("Aiming Mechanics")]
     public KeyCode shootKey = KeyCode.Mouse0;
@@ -43,6 +48,7 @@ public class WeaponMechanicsScript : MonoBehaviour
     void Start()
     {
         localRotation = transform.localRotation;
+        _originalRotation = _weapon.localEulerAngles;
 
         _mainCamera = GameObject.FindWithTag("MainCamera").transform;
 
@@ -50,6 +56,8 @@ public class WeaponMechanicsScript : MonoBehaviour
         gun.rotation = originalWeaponPosition.rotation;
 
         _animator = GetComponentInChildren<Animator>();
+
+        _shootingSFX = GetComponentInChildren<AudioSource>();
     }
 
     // Update is called once per frame
@@ -58,8 +66,6 @@ public class WeaponMechanicsScript : MonoBehaviour
         weaponSway();
         Aiming();
 
-        _isShooting = false;
-
         //Perform a check if the player is holding the shooting key 
         bool isFiring = Input.GetKey(shootKey) && Time.time >= _nextFireTime;
 
@@ -67,13 +73,17 @@ public class WeaponMechanicsScript : MonoBehaviour
         {
             Shoot();
             _nextFireTime = Time.time + fireRate;
+            ApplyRecoil();
+
             muzzleFlash.Play();
+            _shootingSFX.Play();
         }
         else
         {
             muzzleFlash.Stop();
         }
         
+        ResetRecoil();        
         _animator.SetBool("IsShooting", isFiring);
     }
 
@@ -84,7 +94,6 @@ public class WeaponMechanicsScript : MonoBehaviour
         // Set bullet's position and rotation
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = bulletSpawnPoint.rotation;
-
         bullet.SetActive(true); // Make sure the bullet is active
 
         // Clear the TrailRenderer right after the bullet is activated
@@ -95,6 +104,20 @@ public class WeaponMechanicsScript : MonoBehaviour
         }
     }
 
+    private void ApplyRecoil()
+    {
+        _currentRecoil += _recoilAmount;
+        _weapon.localEulerAngles = new Vector3(_originalRotation.x - _currentRecoil, _originalRotation.y, _originalRotation.x);
+    }
+
+    private void ResetRecoil()
+    {
+        if (_currentRecoil > 0)
+        {
+            _currentRecoil = Mathf.Lerp(_currentRecoil, 0, Time.deltaTime * _recoilSpeedReset);
+            _weapon.localEulerAngles = new Vector3(_originalRotation.x - _currentRecoil, _originalRotation.y, _originalRotation.x);
+        }
+    }
 
 
     private void weaponSway()
