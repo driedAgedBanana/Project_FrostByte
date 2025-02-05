@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
@@ -37,9 +38,13 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        ReturnToPool();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        // Handle collision effects if needed
         ReturnToPool();
     }
 

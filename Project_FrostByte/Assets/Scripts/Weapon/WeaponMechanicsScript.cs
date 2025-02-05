@@ -1,7 +1,9 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class WeaponMechanicsScript : MonoBehaviour
 {
+    private BulletScript bulletScript;
     [SerializeField] private Transform _mainCamera;
     [SerializeField] private Camera _cam;
 
@@ -13,6 +15,10 @@ public class WeaponMechanicsScript : MonoBehaviour
 
     private Animator _animator;
     [SerializeField] private AudioSource _shootingSFX;
+
+    [Header("Hipfire spread mechanic")]
+    public float hipfireSpreadAngle = 3f;
+    private float _adsSpreadAngle = 0f;
 
 
     [Header("Recoil Mechanics")]
@@ -67,7 +73,7 @@ public class WeaponMechanicsScript : MonoBehaviour
         Aiming();
 
         //Perform a check if the player is holding the shooting key 
-        bool isFiring = Input.GetKey(shootKey) && Time.time >= _nextFireTime;
+        bool isFiring = Input.GetKeyDown(shootKey) && Time.time >= _nextFireTime;
 
         if (isFiring)
         {
@@ -95,6 +101,34 @@ public class WeaponMechanicsScript : MonoBehaviour
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = bulletSpawnPoint.rotation;
         bullet.SetActive(true); // Make sure the bullet is active
+
+        Vector3 targetPoint;
+        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Center of the screen
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            // IF the raycase does not hit anything, use a point far away in the camera's orward direction
+            targetPoint = ray.GetPoint(1000);
+        }
+
+        // Calculate the direction
+        Vector3 direction = (targetPoint - bulletSpawnPoint.position).normalized;
+
+
+        // Apply the random range if not ADS
+        float spreadAngle = _isAiming ? _adsSpreadAngle : hipfireSpreadAngle;
+
+        if (spreadAngle > 0)
+        {
+            // Random rotation within the spread angle
+            direction = Quaternion.Euler(Random.Range(-spreadAngle, spreadAngle), Random.Range(-spreadAngle, spreadAngle), 0) * direction;
+        }
+
+        // Set the bullet's rotation to face the target direction
+        bullet.transform.rotation = Quaternion.LookRotation(-direction);
 
         // Clear the TrailRenderer right after the bullet is activated
         TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
