@@ -6,56 +6,36 @@ public class BulletScript : MonoBehaviour
     public float speed = 50f;
     public float lifeTime = 3f;
 
+    private Rigidbody rb;
     private float _timer;
 
-    private Rigidbody rb;
-
-    private void OnEnable()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        // Reset position, rotation, and velocities as before
-        transform.position = Vector3.zero;
-        transform.rotation = Quaternion.identity;
-
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-
-        _timer = 0f; // Reset the timer when the bullet is reused
     }
 
-
-    void Update()
+    public void SetDirection(Vector3 direction)
     {
-        // Move the bullet forward
-        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+        if (rb == null) rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = -direction * speed; // Do not question
+    }
 
-        // Disable the bullet after its lifetime
+    private void Update()
+    {
         _timer += Time.deltaTime;
         if (_timer >= lifeTime)
         {
-            ReturnToPool();
+            Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        ReturnToPool();
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        ReturnToPool();
+        Destroy(gameObject);
     }
-
-    private void ReturnToPool()
-    {
-        // Reset Rigidbody velocity
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-
-        // Return the bullet to the pool
-        BulletPool.instance.ReturnBullet(gameObject);
-    }
-
 }

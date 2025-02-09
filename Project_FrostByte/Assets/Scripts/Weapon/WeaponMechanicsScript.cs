@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponMechanicsScript : MonoBehaviour
 {
-    private BulletScript bulletScript;
+    //private BulletScript bulletScript;
     [SerializeField] private Transform _mainCamera;
     [SerializeField] private Camera _cam;
 
@@ -95,12 +95,12 @@ public class WeaponMechanicsScript : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bullet = BulletPool.instance.GetBullet();
+        //GameObject bullet = BulletPool.instance.GetBullet();
 
-        // Set bullet's position and rotation
-        bullet.transform.position = bulletSpawnPoint.position;
-        bullet.transform.rotation = bulletSpawnPoint.rotation;
-        bullet.SetActive(true); // Make sure the bullet is active
+        //// Set bullet's position and rotation
+        //bullet.transform.position = bulletSpawnPoint.position;
+        //bullet.transform.rotation = bulletSpawnPoint.rotation;
+        //bullet.SetActive(true); // Make sure the bullet is active
 
         Vector3 targetPoint;
         Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Center of the screen
@@ -128,14 +128,14 @@ public class WeaponMechanicsScript : MonoBehaviour
         }
 
         // Set the bullet's rotation to face the target direction
-        bullet.transform.rotation = Quaternion.LookRotation(-direction);
+        //bullet.transform.rotation = Quaternion.LookRotation(-direction);
 
         // Clear the TrailRenderer right after the bullet is activated
-        TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
-        if (trail != null)
-        {
-            trail.Clear(); // This will clear the trail when the bullet is fired
-        }
+        //TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
+        //if (trail != null)
+        //{
+        //    trail.Clear(); // This will clear the trail when the bullet is fired
+        //}
     }
 
     private void ApplyRecoil()
