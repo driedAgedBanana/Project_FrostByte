@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public abstract class WeaponBaseManager : MonoBehaviour
@@ -16,15 +17,17 @@ public abstract class WeaponBaseManager : MonoBehaviour
 
     //[Header("Aiming, Shooting and Recoil")]
     //private KeyCode _shootKey = KeyCode.Mouse0;
-    //private KeyCode _aimKey = KeyCode.Mouse1;
+    private KeyCode _aimKey = KeyCode.Mouse1;
 
     //// Aiming and shooting
     //public GameObject bulletPrefab;
     //public Transform shootingPoint;
-    //protected bool p_isAiming;
-    //public float aimingSpeed;
-    //public Transform aimingPosition;
-    //public Transform defaultPosition;
+
+    public Transform aimingPosition;
+    public Transform defaultPosition;
+    public float aimingSpeed;
+    
+    private bool _isAiming;
 
     //// Recoil
     //private float _currentRecoil;
@@ -56,15 +59,32 @@ public abstract class WeaponBaseManager : MonoBehaviour
         //_currentAmmo = maxAmmo;
         //_mainCamera = GameObject.FindWithTag("MainCamera").transform;
 
-
-
         _initialPosition = transform.localPosition;
         _initialRotation = transform.localRotation;
+
+        _isAiming = false;
+
+        //audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Update()
     {
+        Aiming();
         HandleWeaponSway();
+    }
+
+    public abstract void HandleFireModes();
+
+    protected void Aiming()
+    {
+        _isAiming = Input.GetKey(_aimKey);
+
+        Transform l_targetTransform = _isAiming ? aimingPosition : defaultPosition;
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, l_targetTransform.localPosition, Time.deltaTime * aimingSpeed);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, l_targetTransform.localRotation, Time.deltaTime * aimingSpeed);
+
+
     }
 
     protected void HandleWeaponSway()
