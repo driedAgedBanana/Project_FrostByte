@@ -273,6 +273,10 @@ MonoBehaviour:
   shootingSFX: {fileID: 8300000, guid: 910fa06764ae29b43bf74db38448dd29, type: 3}
   reloadingSFX: {fileID: 8300000, guid: 3f50831ee21c3ed488ae8ad329cab893, type: 3}
   audioSource: {fileID: 520525980}
+  drag: 5
+  dragThresHold: 5
+  smoothness: 5
+  parent: {fileID: 520525981}
   shootingPoint: {fileID: 474690322}
 --- !u!82 &520525980
 AudioSource:
@@ -371,6 +375,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!4 &520525981 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4472741079250685074, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+  m_PrefabInstance: {fileID: 1921326741766445341}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &572429124 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2889094960153161092, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
@@ -1118,6 +1127,26 @@ PrefabInstance:
     - target: {fileID: 1695563851965633397, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889094960153161092, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889094960153161092, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889094960153161092, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889094960153161092, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889094960153161092, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5776093329640313041, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
       propertyPath: m_Controller
