@@ -20,6 +20,13 @@ public abstract class WeaponManager : MonoBehaviour
     public AudioClip reloadingSFX;
     public AudioSource audioSource;
 
+    [Header("Weapon Sway Mechanic")]
+    public float drag;
+    public float dragThresHold;
+    public float smoothness;
+    public Transform parent;
+
+
     [Header("References")]
     [SerializeField] protected Transform shootingPoint;
     protected KeyCode shootKey = KeyCode.Mouse0;

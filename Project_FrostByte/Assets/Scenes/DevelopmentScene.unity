@@ -266,7 +266,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1862649911208220329, guid: f586a5473d4e3db40b3352dc23503c06, type: 3}
   maxAmmo: 7
   fireRate: 0.2
-  reloadTime: 0.2
+  reloadTime: 2
   aimingSpeed: 10
   aimingPosition: {fileID: 572429124}
   originalPosition: {fileID: 1166851745}
@@ -1102,6 +1102,10 @@ PrefabInstance:
     - target: {fileID: 1811837619880619, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.1508
+      objectReference: {fileID: 0}
+    - target: {fileID: 280749391192235664, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1296039149239982345, guid: b5a2427b6a7633d4a8815f4e2aac4311, type: 3}
       propertyPath: m_Enabled
