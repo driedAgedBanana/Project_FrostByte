@@ -290,11 +290,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!4 &652976683 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8116155075977294907, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
-  m_PrefabInstance: {fileID: 723315975}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &723315975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -305,7 +300,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 285611516622169811, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1944
+      value: -0.202
+      objectReference: {fileID: 0}
+    - target: {fileID: 285611516622169811, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 4965438261709640327, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_Name
@@ -551,7 +550,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!1 &988422620 stripped
 GameObject:
@@ -574,7 +573,8 @@ MonoBehaviour:
   _cam: {fileID: 231006122}
   fireRate: 0.2
   bulletPrefab: {fileID: 4805712698577728031, guid: 6250250707b27724f93574e62c3eb5db, type: 3}
-  shootingPoint: {fileID: 652976683}
+  shootingPoint: {fileID: 1237622976}
+  bulletSpeed: 125
   aimingPosition: {fileID: 1104896446}
   defaultPosition: {fileID: 1294043}
   weapon: {fileID: 723315976}
@@ -761,14 +761,19 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232227094}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.01936547, y: -0.016788704, z: 0.04605228, w: 0.99861026}
+  m_LocalPosition: {x: -0.0009107888, y: 0.053, z: 0.003901735}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 723315976}
   m_Father: {fileID: 231006123}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.305, y: -1.821, z: 5.244}
+--- !u!4 &1237622976 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 285611516622169811, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
+  m_PrefabInstance: {fileID: 723315975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1876470748
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,29 +3,30 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float speed = 50f;
-    public float lifeTime = 3f;
-
-    private Rigidbody rb;
-    private float _timer;
+    public float speed;
+    public float lifeDuration;
+    public float lifeTimer;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    public void SetDirection(Vector3 direction)
-    {
-        if (rb == null) rb = GetComponent<Rigidbody>();
-        rb.linearVelocity = -direction * speed; // Do not question
+        lifeDuration = lifeTimer;
     }
 
     private void Update()
     {
-        _timer += Time.deltaTime;
-        if (_timer >= lifeTime)
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if ( rb != null )
         {
-            Destroy(gameObject);
+            transform.position += transform.forward * speed * Time.deltaTime;
+            lifeDuration -= Time.deltaTime;
+            if (lifeDuration <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            Debug.LogError("Bullet have no Rigidbody assigned!");
         }
     }
 

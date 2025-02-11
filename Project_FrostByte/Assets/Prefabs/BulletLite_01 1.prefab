@@ -30,9 +30,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4805712698577728031}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.02061865, y: -0.6319005, z: -0.05778019, w: 0.77261776}
-  m_LocalPosition: {x: -0.7771952, y: 1.4748808, z: -1.1515884}
-  m_LocalScale: {x: 7.36, y: 7.36, z: 7.36}
+  m_LocalRotation: {x: 0.14717743, y: -0.9761557, z: 0.023902323, w: -0.15775804}
+  m_LocalPosition: {x: 0.39651468, y: 1.6014476, z: -0.7287203}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,7 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 125
-  lifeTime: 0.6
+  lifeDuration: 0.06
+  lifeTimer: 0.08
 --- !u!33 &5493159181835942712
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0064001456
+        value: 0.01920227
         inSlope: 0
         outSlope: 0
         tangentMode: 0

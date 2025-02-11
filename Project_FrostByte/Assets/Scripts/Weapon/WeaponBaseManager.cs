@@ -22,6 +22,7 @@ public abstract class WeaponBaseManager : MonoBehaviour
     // Aiming and shooting
     public GameObject bulletPrefab;
     public Transform shootingPoint;
+    public float bulletSpeed;
 
     public Transform aimingPosition;
     public Transform defaultPosition;
@@ -88,44 +89,46 @@ public abstract class WeaponBaseManager : MonoBehaviour
 
     protected void Shooting()
     {
-
-        bulletPrefab.transform.position = shootingPoint.position;
-        bulletPrefab.transform.rotation = shootingPoint.rotation;
-
-        // Create a ray from the cam going through the middle of the screen
-        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        Vector3 l_TargetPoint;
-        if (Physics.Raycast(ray, out hit))
+        if (bulletPrefab == null || shootingPoint == null)
         {
-            l_TargetPoint = hit.point;
-        }
-        else
-        {
-            l_TargetPoint = ray.GetPoint(1000);
-        }
-
-        // Calculate the direction from the gun to the target point
-        Vector3 l_shootDirection = (l_TargetPoint - shootingPoint.position).normalized;
-
-        GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.LookRotation(l_shootDirection));
-
-        if (bullet == null)
-        {
-            Debug.LogError("Bullet not assigned!");
+            Debug.LogError("Bullet Prefab or Shooting Point is not assigned!");
             return;
         }
 
-        bullet.GetComponent<BulletScript>().SetDirection(l_shootDirection);
+        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Center of the screen
+        RaycastHit hit;
+
+        // If the ray hits something, use that point as the target; otherwise, set a distant point
+        Vector3 l_targetPoint;
+        if (Physics.Raycast(ray, out hit))
+        {
+            l_targetPoint = hit.point;
+        }
+        else
+        {
+            // If no hit, use a point far in front of the camera
+            l_targetPoint = ray.GetPoint(1000);
+        }
+
+        Vector3 l_direction = (l_targetPoint - shootingPoint.position).normalized;
+
+        if(_isAiming)
+        {
+            l_direction = _cam.transform.forward;
+        }
+
+        GameObject l_bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+
+        l_bullet.transform.rotation = Quaternion.LookRotation(l_direction);
 
         // Clear the trail
-        TrailRenderer l_trail = bullet.GetComponent<TrailRenderer>();
-        if (l_trail != null)
+        TrailRenderer trail = l_bullet.GetComponent<TrailRenderer>();
+        if (trail != null)
         {
-            l_trail.Clear();
+            trail.Clear();
         }
     }
+
 
     protected void HandleWeaponSway()
     {
