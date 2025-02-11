@@ -57,6 +57,9 @@ public class WeaponScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Instantiate(shootingLine, shootingPoint.position, shootingPoint.rotation);
+
+
+
             if (Physics.Raycast(_cam.transform.position, _cam.transform.forward, out RaycastHit Hit))
             {
 
