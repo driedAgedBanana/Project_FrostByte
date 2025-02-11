@@ -16,10 +16,12 @@ public class WeaponScript : MonoBehaviour
     public int damage;
     public float fireRate;
     public float range;
-    public TrailRenderer shootingLine;
+    public GameObject shootingLine;
     public Transform shootingPoint;
     private Camera _cam;
     private WaitForSeconds _shotDuration = new WaitForSeconds(0.07f);
+
+    public float bulletSpread;
 
     private float nextFire;
 
@@ -56,14 +58,17 @@ public class WeaponScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Instantiate(shootingLine, shootingPoint.position, shootingPoint.rotation);
+            Vector3 fwd = _cam.transform.forward;
+            fwd = fwd + _cam.transform.TransformDirection(new Vector3(Random.Range(-bulletSpread, bulletSpread), Random.Range(-bulletSpread, bulletSpread)));
 
 
-
-            if (Physics.Raycast(_cam.transform.position, _cam.transform.forward, out RaycastHit Hit))
+            if (Physics.Raycast(_cam.transform.position, fwd, out RaycastHit Hit))
             {
 
             }
+
+            GameObject Tracer = Instantiate(shootingLine, shootingPoint.position, shootingPoint.rotation);
+            Tracer.transform.LookAt(fwd * 100);
         }
     }
 

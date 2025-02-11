@@ -585,8 +585,9 @@ MonoBehaviour:
   damage: 1
   fireRate: 1
   range: 10
-  shootingLine: {fileID: 3506803456707530865, guid: 7be79def42e472048a328acaa240d223, type: 3}
+  shootingLine: {fileID: 2666726158629278510, guid: 7be79def42e472048a328acaa240d223, type: 3}
   shootingPoint: {fileID: 874825484}
+  bulletSpread: 0.02
 --- !u!1 &1104896445
 GameObject:
   m_ObjectHideFlags: 0
