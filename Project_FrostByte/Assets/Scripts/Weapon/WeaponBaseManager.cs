@@ -25,6 +25,7 @@ public abstract class WeaponBaseManager : MonoBehaviour
 
     public Transform aimingPosition;
     public Transform defaultPosition;
+    public Transform weapon;
     public float aimingSpeed;
     
     private bool _isAiming;
@@ -59,8 +60,8 @@ public abstract class WeaponBaseManager : MonoBehaviour
         //_currentAmmo = maxAmmo;
         //_mainCamera = GameObject.FindWithTag("MainCamera").transform;
 
-        _initialPosition = transform.localPosition;
-        _initialRotation = transform.localRotation;
+        weapon.position = defaultPosition.position;
+        weapon.rotation = defaultPosition.rotation;
 
         _isAiming = false;
 
@@ -79,11 +80,8 @@ public abstract class WeaponBaseManager : MonoBehaviour
     {
         _isAiming = Input.GetKey(_aimKey);
 
-        Transform l_targetTransform = _isAiming ? aimingPosition : defaultPosition;
-
-        transform.localPosition = Vector3.Lerp(transform.localPosition, l_targetTransform.localPosition, Time.deltaTime * aimingSpeed);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, l_targetTransform.localRotation, Time.deltaTime * aimingSpeed);
-
+        weapon.localPosition = Vector3.Lerp(weapon.localPosition, _isAiming ? aimingPosition.localPosition : defaultPosition.localPosition, Time.deltaTime * aimingSpeed);
+        weapon.localRotation = Quaternion.Slerp(weapon.localRotation, _isAiming ? aimingPosition.localRotation : defaultPosition.localRotation, Time.deltaTime * aimingSpeed);
 
     }
 
