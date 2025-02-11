@@ -5,23 +5,23 @@ public abstract class WeaponBaseManager : MonoBehaviour
 {
     //[Header("Weapon Setting")]
     //public string weaponName;
-    //[SerializeField] private Transform _mainCamera;
-    //[SerializeField] private Camera _cam;
+    [SerializeField] private Transform _mainCamera;
+    [SerializeField] private Camera _cam;
 
     //[Header("Reloading")]
     //public int maxAmmo;
     //[SerializeField] private int _currentAmmo;
-    //public float fireRate;
+    public float fireRate;
     //public float reloadTime;
-    //protected bool p_canFire;
+    protected bool p_canFire;
 
     //[Header("Aiming, Shooting and Recoil")]
-    //private KeyCode _shootKey = KeyCode.Mouse0;
-    private KeyCode _aimKey = KeyCode.Mouse1;
+    protected KeyCode _shootKey = KeyCode.Mouse0;
+    protected KeyCode _aimKey = KeyCode.Mouse1;
 
-    //// Aiming and shooting
-    //public GameObject bulletPrefab;
-    //public Transform shootingPoint;
+    // Aiming and shooting
+    public GameObject bulletPrefab;
+    public Transform shootingPoint;
 
     public Transform aimingPosition;
     public Transform defaultPosition;
@@ -72,6 +72,7 @@ public abstract class WeaponBaseManager : MonoBehaviour
     {
         Aiming();
         HandleWeaponSway();
+        HandleFireModes();
     }
 
     public abstract void HandleFireModes();
@@ -83,6 +84,47 @@ public abstract class WeaponBaseManager : MonoBehaviour
         weapon.localPosition = Vector3.Lerp(weapon.localPosition, _isAiming ? aimingPosition.localPosition : defaultPosition.localPosition, Time.deltaTime * aimingSpeed);
         weapon.localRotation = Quaternion.Slerp(weapon.localRotation, _isAiming ? aimingPosition.localRotation : defaultPosition.localRotation, Time.deltaTime * aimingSpeed);
 
+    }
+
+    protected void Shooting()
+    {
+
+        bulletPrefab.transform.position = shootingPoint.position;
+        bulletPrefab.transform.rotation = shootingPoint.rotation;
+
+        // Create a ray from the cam going through the middle of the screen
+        Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        Vector3 l_TargetPoint;
+        if (Physics.Raycast(ray, out hit))
+        {
+            l_TargetPoint = hit.point;
+        }
+        else
+        {
+            l_TargetPoint = ray.GetPoint(1000);
+        }
+
+        // Calculate the direction from the gun to the target point
+        Vector3 l_shootDirection = (l_TargetPoint - shootingPoint.position).normalized;
+
+        GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.LookRotation(l_shootDirection));
+
+        if (bullet == null)
+        {
+            Debug.LogError("Bullet not assigned!");
+            return;
+        }
+
+        bullet.GetComponent<BulletScript>().SetDirection(l_shootDirection);
+
+        // Clear the trail
+        TrailRenderer l_trail = bullet.GetComponent<TrailRenderer>();
+        if (l_trail != null)
+        {
+            l_trail.Clear();
+        }
     }
 
     protected void HandleWeaponSway()
