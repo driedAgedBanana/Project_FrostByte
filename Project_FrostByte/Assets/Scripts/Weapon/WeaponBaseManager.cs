@@ -110,6 +110,7 @@ public abstract class WeaponBaseManager : MonoBehaviour
             l_targetPoint = ray.GetPoint(1000);
         }
 
+        // Adjust the direction based on the aiming position (not the default)
         Vector3 l_direction = (l_targetPoint - shootingPoint.position).normalized;
 
         if(_isAiming)
@@ -119,6 +120,7 @@ public abstract class WeaponBaseManager : MonoBehaviour
 
         GameObject l_bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
 
+        // Set the bullet's rotation to face at the calculated direction
         l_bullet.transform.rotation = Quaternion.LookRotation(l_direction);
 
         // Clear the trail
