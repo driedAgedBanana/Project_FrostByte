@@ -565,8 +565,8 @@ MonoBehaviour:
   defaultPosition: {fileID: 1294043}
   weapon: {fileID: 723315976}
   aimingSpeed: 10
-  swayAmount: 0.02
-  maxSwayAmount: 0.06
+  swayAmount: 0.06
+  maxSwayAmount: 0.08
   swaySmoothness: 5
   rotationSwayAmount: 2
   maxRotationSway: 6
