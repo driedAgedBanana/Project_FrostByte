@@ -370,6 +370,10 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7783656710476370115, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
+      propertyPath: m_Name
+      value: ShootingPoint
+      objectReference: {fileID: 0}
     - target: {fileID: 8000606548106427307, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_Convex
       value: 1
@@ -389,6 +393,11 @@ PrefabInstance:
 --- !u!4 &723315976 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
+  m_PrefabInstance: {fileID: 723315975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &874825484 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5543076563140121242, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
   m_PrefabInstance: {fileID: 723315975}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &890216396
@@ -566,25 +575,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 988422620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ac60749309bafd4da5a120036c3c12e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2abe0c28b6a66634dbdd3ca34b6c8b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 231006123}
-  _cam: {fileID: 231006122}
-  fireRate: 0.2
-  bulletPrefab: {fileID: 4805712698577728031, guid: 6250250707b27724f93574e62c3eb5db, type: 3}
-  shootingPoint: {fileID: 1237622976}
-  bulletSpeed: 125
-  aimingPosition: {fileID: 1104896446}
-  defaultPosition: {fileID: 1294043}
-  weapon: {fileID: 723315976}
-  aimingSpeed: 10
-  swayAmount: 0.06
-  maxSwayAmount: 0.08
-  swaySmoothness: 5
-  rotationSwayAmount: 2
-  maxRotationSway: 6
-  rotationSmoothness: 5
+  damage: 1
+  fireRate: 1
+  range: 10
+  shootingLine: {fileID: 3506803456707530865, guid: 7be79def42e472048a328acaa240d223, type: 3}
+  shootingPoint: {fileID: 874825484}
 --- !u!1 &1104896445
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,13 +607,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104896445}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.009255732, y: 0.7070462, z: -0.009255732, w: 0.7070462}
-  m_LocalPosition: {x: 0, y: -0.26699996, z: 0.619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.071, z: 0.387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 231006123}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -1.5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1131336678
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,11 +767,6 @@ Transform:
   - {fileID: 723315976}
   m_Father: {fileID: 231006123}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1237622976 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 285611516622169811, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
-  m_PrefabInstance: {fileID: 723315975}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1876470748
 GameObject:
   m_ObjectHideFlags: 0
