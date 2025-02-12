@@ -76,6 +76,8 @@ public class WeaponScript : MonoBehaviour
         if(_aimTime <= 0.5f)
         {
             targetPos = Vector3.Lerp(defaultPos.position, defaultPos.position + recoilPos, recoilAmount);
+            targetRot = Quaternion.Slerp(defaultPos.rotation, recoilRot, recoilAmount);
+
         }
 
         if(recoilAmount > 0)

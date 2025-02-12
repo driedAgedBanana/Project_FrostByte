@@ -357,19 +357,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6620219
+      value: 0.70660925
       objectReference: {fileID: 0}
     - target: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.04880433
+      value: -0.050525457
       objectReference: {fileID: 0}
     - target: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7473089
+      value: 0.7052994
       objectReference: {fileID: 0}
     - target: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0295742
+      value: 0.026521496
       objectReference: {fileID: 0}
     - target: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -377,7 +377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 97.032
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5738456080911321149, guid: 100235d30fb2b714a843b1eaae687bf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -670,8 +670,8 @@ MonoBehaviour:
   muzzleFlash: {fileID: 104000418}
   shootingLine: {fileID: 2666726158629278510, guid: 7be79def42e472048a328acaa240d223, type: 3}
   shootingPoint: {fileID: 874825484}
-  recoilAmount: 2
-  recoilSpeed: 3
+  recoilPos: {x: 0.5, y: 0.5, z: 0}
+  recoilRot: {x: 0, y: 0, z: 0, w: 0}
   adsBulletSpread: 0.02
   bulletSpread: 0.05
   shootingSFX: {fileID: 8300000, guid: 910fa06764ae29b43bf74db38448dd29, type: 3}
