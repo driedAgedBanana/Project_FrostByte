@@ -671,7 +671,7 @@ MonoBehaviour:
   shootingLine: {fileID: 2666726158629278510, guid: 7be79def42e472048a328acaa240d223, type: 3}
   shootingPoint: {fileID: 874825484}
   recoilPos: {x: 0.5, y: 0.5, z: 0}
-  recoilRot: {x: 0, y: 0, z: 0, w: 0}
+  recoilRot: {x: 0, y: 0.004974168, z: 0, w: 0.9999876}
   adsBulletSpread: 0.02
   bulletSpread: 0.05
   shootingSFX: {fileID: 8300000, guid: 910fa06764ae29b43bf74db38448dd29, type: 3}
