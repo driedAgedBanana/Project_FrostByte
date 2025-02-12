@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 public class WeaponScript : MonoBehaviour
 {
@@ -29,8 +28,10 @@ public class WeaponScript : MonoBehaviour
     public Transform shootingPoint;
     private Camera _cam;
 
-    public float recoilAmount; 
-    public float recoilSpeed;
+    public Vector3 recoilPos;
+    public Quaternion recoilRot;
+
+    private float recoilAmount; 
     public float adsBulletSpread;
     public float bulletSpread;
     public AudioClip shootingSFX;
@@ -69,7 +70,20 @@ public class WeaponScript : MonoBehaviour
             _aimTime -= Time.deltaTime * aimSpeed;
         }
 
-        weapon.position = Vector3.Lerp(defaultPos.position, aimingPos.position, _aimTime);
+        Vector3 targetPos = defaultPos.position;
+        Quaternion targetRot = defaultPos.rotation;
+
+        if(_aimTime <= 0.5f)
+        {
+            targetPos = Vector3.Lerp(defaultPos.position, defaultPos.position + recoilPos, recoilAmount);
+        }
+
+        if(recoilAmount > 0)
+        {
+            recoilAmount -= Time.deltaTime;
+        }
+
+        weapon.position = Vector3.Lerp(targetPos, aimingPos.position, _aimTime);
         weapon.rotation = Quaternion.Lerp(defaultPos.rotation, aimingPos.rotation, _aimTime);
     }
 
@@ -101,6 +115,11 @@ public class WeaponScript : MonoBehaviour
             GameObject Tracer = Instantiate(shootingLine, shootingPoint.position, shootingPoint.rotation);
             Tracer.transform.LookAt(forward * 100);
             audioSource.PlayOneShot(shootingSFX);
+
+            if(recoilAmount < 0.9f)
+            {
+                recoilAmount += 0.1f;
+            }
         }
 
         if ((Input.GetKeyDown(KeyCode.R) && _currentAmmo <= maxAmmo) || _currentAmmo <= 0)
