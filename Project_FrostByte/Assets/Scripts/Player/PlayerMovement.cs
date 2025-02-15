@@ -113,13 +113,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform cameraTransform;
 
     [Header("Leaning Mechanic")]
-    public float rotationSpeed = 2; // Speed of camera rotation
-    public float amt; // Leaning amount, not used directly
-    public float slerpAMT; // Slerp amount, not used directly
     public float leaningAmount = 20f; // Amount to lean left or right
     public float leaningSpeed = 15f; // Speed of leaning transition
 
-    private Quaternion _startRotation; // Initial rotation of the player
     private Quaternion _targetLeanRotation; // Target rotation for leaning
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
